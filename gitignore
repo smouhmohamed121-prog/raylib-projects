@@ -1,0 +1,16 @@
+# Binaries and executables
+*.exe
+*.out
+*.app
+build/
+bin/
+
+# Object files
+*.o
+*.obj
+
+# IDE specific files
+.vscode/
+.idea/
+*.suo
+*.vcxproj*
