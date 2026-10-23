@@ -17,7 +17,7 @@ int main(void){
 
         // All Drawing happes here 
         ClearBackground(SKYBLUE);
-       DrawText(text2,10,20, fontSize, GOLD);       // Draw text (using default font)
+        DrawText(text2,10,20, fontSize, GOLD);       // Draw text (using default font)
         DrawText(text,10,20+fontSize, fontSize, RED);       // Draw text (using default font)
 
         EndDrawing();
