@@ -1,13 +1,12 @@
 #include <raylib.h>
 #include <unistd.h>
-void move_player (Sprite *player);
 typedef struct Sprite{
 
   Texture2D texture;
   Rectangle dest_rect;
 
 } Sprite;
-
+void move_player (Sprite *player);
 int main(void ){
 
     const int window_width = 500;
@@ -18,6 +17,9 @@ int main(void ){
     InitWindow(window_width , window_height,title);
     // loading texture
     Texture2D duck = LoadTexture("duck.png");
+    if (duck.id == 0) {
+      TraceLog(LOG_ERROR, "FATAL: Could not load duck.png!");
+    }
     Sprite player = (Sprite){
       .texture = duck,
       .dest_rect = (Rectangle){
@@ -27,25 +29,16 @@ int main(void ){
         .width = 100.0,
       }
    };
-    SetTargetFPS(5);
-    Color colors[] = { 
-    LIGHTGRAY, GRAY, DARKGRAY, YELLOW, GOLD, ORANGE, PINK, 
-    RED, MAROON, GREEN, LIME, DARKGREEN, SKYBLUE, BLUE, 
-    DARKBLUE, PURPLE, VIOLET, DARKPURPLE, BEIGE, BROWN, 
-    DARKBROWN, WHITE, BLACK, BLANK, MAGENTA, RAYWHITE 
-    };
-    int number_colors = sizeof(colors) / sizeof(colors[0]);
-    int current_color_index = 0;
+    SetTargetFPS(60);
     // run app ```
     while (!WindowShouldClose()){
+      // Update player 
+        move_player(&player);
         BeginDrawing();
-        ClearBackground(colors[current_color_index]);
-        if (current_color_index < number_colors){
-          current_color_index++;
-        }
-        else current_color_index = 0;
-    //    DrawTexture(duck,12,13,RAYWHITE);
-        DrawTexturePro(player.texture,{0,0,16,16},player.dest_rect, {0,0}, 0,RAYWHITE); 
+        ClearBackground(SKYBLUE);
+      //    DrawTexture(duck,12,13,RAYWHITE);
+        DrawTexturePro(player.texture,(Rectangle){0,0,96,96},player.dest_rect,(Vector2) {0,0}, 0,RAYWHITE); 
+        //DrawTexture(player.texture, (int)player.dest_rect.x, (int)player.dest_rect.y, RAYWHITE);
         EndDrawing();
     }
     // unload textuer 
@@ -57,7 +50,11 @@ return 0;}
 
 
 void move_player (Sprite *player){
-  if (IsKeyDown(key_D)){
-    player->dest_rect.x += 10.0;
+  if (IsKeyDown(KEY_D)){
+    player->dest_rect.x += 100.0 * GetFrameTime();
   }
+  if (IsKeyDown(KEY_A)){
+    player->dest_rect.x -= 100.0 * GetFrameTime();
+  }
+
 }

@@ -1,8 +1,8 @@
 
 
 # Change 'main' to whatever your source file is named (without the .c)
-TARGET = 003_basic_texture
-SRC = 003_basic_texture.c
+TARGET = 004_basic_texture
+SRC = 004_duck_moving.c
 
 CC = gcc
 CFLAGS = -Wall -std=c99
